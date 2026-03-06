@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш Квиз ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="quiz-card">
+    <!-- ЗОНА ВХОДА -->
+    <div id="auth-zone">
+        <div id="result-emoji">🔐</div>
+        <h2>Вход в секретный квиз</h2>
+        <input type="password" id="pass-input" placeholder="Введите пароль..." class="auth-input">
+        <p id="auth-error" class="hidden">Неверно! Подсказка: Пароль 📱</p>
+        <button id="auth-btn" class="btn btn-reset" onclick="checkAuth()">Войти</button>
+    </div>
+
+    <!-- ЗОНА ИГРЫ -->
+    <div id="game-zone" class="hidden">
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress">Вопрос 1 из 10</div>
+        <h2 id="question">Тут будет вопрос</h2>
+        <div id="options" class="options"></div>
+    </div>
+
+    <!-- ЗОНА РЕЗУЛЬТАТА -->
+    <div id="result-zone" class="hidden">
+        <div id="result-emoji">❤️</div>
+        <h2 id="result-title">Квиз пройден!</h2>
+        <p class="score-text" id="score-display"></p>
+        <button class="btn btn-reset" onclick="location.reload()">Пройти еще раз</button>
+    </div>
+</div>
+
+<!-- ФОНОВЫЙ КОЛЛАЖ -->
+<div class="background-collage">
+    <div class="photo photo-1"></div><div class="photo photo-2"></div>
+    <div class="photo photo-3"></div><div class="photo photo-4"></div>
+    <div class="photo photo-5"></div><div class="photo photo-6"></div>
+    <div class="photo photo-7"></div><div class="photo photo-8"></div>
+    <div class="photo photo-9"></div><div class="photo photo-10"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net"></script>
+<script src="script.js"></script>
+</body>
+</html>

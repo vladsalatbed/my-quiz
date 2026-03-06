@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш Квиз ❤️</title>
+<style>
+    :root {
+        --pink: #ffafbd;
+        --rose: #ffc3a0;
+        --dark-pink: #d4418e;
+    }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* НАСТРОЙКА ФОНА: */
+        background-image:
+            /* 1. Общее затемнение для читаемости текста */
+            linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+            /* 2. Верхнее фото с прозрачностью 0.5 (регулируется через linear-gradient поверх) */
+            linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+            url('1.jpg'), /* Имя первого файла */
+            url('2.jpg'); /* Имя второго файла */
+
+        background-blend-mode: normal, overlay, normal; /* Режим смешивания */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+
+    #quiz-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        width: 90%;
+        max-width: 450px;
+        text-align: center;
+        backdrop-filter: blur(10px); /* Красивое размытие фона за карточкой */
+    }
+    /* ... остальные стили из вашего кода (кнопки, текст) остаются прежними ... */
+    #progress { font-size: 0.9rem; color: #888; margin-bottom: 1rem; }
+    h2 { color: var(--dark-pink); margin-bottom: 1.5rem; font-size: 1.3rem; }
+    .options { display: grid; gap: 10px; }
+    .btn {
+        background: #f8f9fa;
+        border: 2px solid #eee;
+        padding: 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 1rem;
+    }
+    .btn:hover { border-color: var(--pink); background: #fff5f7; }
+    .hidden { display: none; }
+    #result-emoji { font-size: 4rem; margin-bottom: 1rem; }
+    .score-text { font-size: 1.2rem; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+
+<div id="quiz-card">
+    <div id="progress">Вопрос 1 из 10</div>
+    <div id="game-zone">
+        <h2 id="question">Тут будет вопрос</h2>
+        <div id="options" class="options"></div>
+    </div>
+    <div id="result-zone" class="hidden">
+        <div id="result-emoji">❤️</div>
+        <h2>Квиз пройден!</h2>
+        <p class="score-text" id="score-display"></p>
+        <button class="btn" style="width:100%; background: var(--pink); color: white;" onclick="location.reload()">Пройти еще раз</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "Когда мы с тобой познакомились?", a: ["в августе 2022г", "в ноябре 2021г", "в августе 2021г", "в ноябре 2022г"], c: 0 },
+        { q: "Когда я к тебе переехал?", a: ["сентябрь", "август", "июль"], c: 0 },
+        { q: "Дата начала наших отношений?", a: ["1 сентября", "3 сентября", "5 сентября", "31 августа"], c: 2 },
+        { q: "Что было подарено на первый новый год?", a: ["apple watch", "кеды Nike", "наушники airpods", "духи"], c: 0 },
+        { q: "Какие цветы ты любишь?", a: ["ромашки", "пионы", "розы", "хризантемы"], c: 0 },
+        { q: "Что было подарено на 8 марта в 2025г?", a: ["плойка", "фен", "косметика", "сертификат в Золотое Яблоко"], c: 1 },
+        { q: "Какое было наше первое свидание?", a: ["прогулка на лошадях", "стрельба из лука", "гончарное мастерство", "экскурсия по Неве"], c: 2 },
+        { q: "Как зовут нашу собаку?", a: ["чаппи", "кабачок", "лютик", "будулай"], c: 0 },
+        { q: "В каком году ты устроилась в легенду?", a: ["в марте 2022г", "в марте 2023г", "в марте 2024г", "в марте 2025г"], c: 1 },
+        { q: "Люблю ли я тебя?", a: ["да", "да", "Да", "да"], c: 2 }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function render() {
+        const data = questions[current];
+        document.getElementById("progress").innerText = `Вопрос ${current + 1} из ${questions.length}`;
+        document.getElementById("question").innerText = data.q;
+        const container = document.getElementById("options");
+        container.innerHTML = "";
+
+        data.a.forEach((ans, i) => {
+            const b = document.createElement("button");
+            b.className = "btn";
+            b.innerText = ans;
+            b.onclick = () => {
+                if(i === data.c) score++;
+                current++;
+                if(current < questions.length) render();
+                else finish();
+            };
+            container.appendChild(b);
+        });
+    }
+
+    function finish() {
+        document.getElementById("game-zone").classList.add("hidden");
+        document.getElementById("progress").classList.add("hidden");
+        document.getElementById("result-zone").classList.remove("hidden");
+        document.getElementById("score-display").innerText = `Твой результат: ${score} из ${questions.length}`;
+        if(score === 10) document.getElementById("result-emoji").innerText = "👑";
+    }
+
+    render();
+</script>
+
+</body>
+</html>

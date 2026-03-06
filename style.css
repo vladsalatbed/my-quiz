@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com');
+
+:root {
+    --pink: #ffafbd;
+    --dark-pink: #d4418e;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+}
+
+#quiz-card {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 10;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid #eee;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #eee;
+    background: #f9f9f9;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+.btn-reset {
+    background: linear-gradient(135deg, var(--pink), var(--dark-pink));
+    color: white;
+    border: none;
+}
+
+.correct { background: #2ecc71 !important; color: white !important; border-color: #27ae60 !important; }
+.wrong { background: #ff7675 !important; color: white !important; border-color: #d63031 !important; }
+
+.progress-container { background: #eee; height: 6px; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+#progress-bar { background: var(--pink); height: 100%; width: 0%; transition: 0.4s; }
+
+.background-collage { position: fixed; inset: 0; z-index: -1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 5px; }
+.photo { background-size: cover; background-position: center; filter: brightness(0.5); }
+.photo-1 { grid-column: span 2; background-image: url('1.jpg'); }
+.photo-2 { background-image: url('2.jpg'); }
+.photo-3 { grid-row: span 2; background-image: url('3.jpg'); }
+.photo-4 { background-image: url('4.jpg'); }
+.photo-5 { background-image: url('5.jpg'); }
+.photo-6 { background-image: url('6.jpg'); }
+.photo-7 { background-image: url('7.jpg'); }
+.photo-8 { background-image: url('8.jpg'); }
+.photo-9 { background-image: url('9.jpg'); }
+.photo-10 { grid-column: span 2; background-image: url('10.jpg'); }
+
+.hidden { display: none !important; }
+#auth-error { color: var(--dark-pink); font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; }
+/* Анимация сердечек */
+.heart-particle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 20px;
+    animation: flyUp 1s ease-out forwards;
+    z-index: 1000;
+}
+
+@keyframes flyUp {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--mdx), -100px) scale(1.5); opacity: 0; }
+}
+
+/* Плавный переход для фона */
+.background-collage {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+#quiz-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
